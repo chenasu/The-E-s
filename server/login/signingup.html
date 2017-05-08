@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>sign-up</title>
+    <link rel="stylesheet" href="signup_style.css"/>
+    <script src="signup_js.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="main">
+        <h2>please sign-up with your username\pass.</h2>
+        <form id="form_id" method="post" name="myform">
+            <label>User Name :</label>
+            <input type="text" name="username" id="username"/>
+            <label>Password :</label>
+            <input type="password" name="password" id="password"/>
+            <label>email :</label>
+            <input type="text" name="email" id="email"/>
+            <input type="button" value="sign-up" id="submit" onclick="signup()"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>
