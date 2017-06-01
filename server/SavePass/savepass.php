@@ -53,7 +53,7 @@ class SavePass
 
         $query = $this->conn->query($sql);
         if ($query) {
-            $jsonAns = ['signedup'=> 'true'];
+            $jsonAns = ['signedup' => 'true'];
             header('content-type: application/json');
             echo json_encode($jsonAns);
             $sql = "CREATE TABLE `$email` (
@@ -83,17 +83,22 @@ class SavePass
         {
             $this->userAddToTable();
         }
-        else {
+        if (isset($_POST['register']))
+        {
             $this->createUser();
+        }
+        if (isset($_POST['fetchInfo']))
+        {
+            $this->fetchInfo();
         }
     }
 
     public function login()
     {
-        $username = $_POST['username'];
+        $email = $_POST['email'];
         $password = $_POST{'password'};
         $this->createConnection();
-        $sql = "SELECT `password` ,`username` FROM `users` WHERE `username` = '$username' AND `password` = '$password'";
+        $sql = "SELECT `password` ,`email` FROM `users` WHERE `email` = '$email' AND `password` = '$password'";
         $query = $this->conn->query($sql);
         if ($query == false) {
             $msg = "Could not successfully run query ($sql) from DB.";
@@ -108,6 +113,31 @@ class SavePass
             $jsonAns = ['msg' => 'Wrong username or password'];
             echo (json_encode($jsonAns));
         }
+        $this->conn->close();
+    }
+
+    public function fetchInfo()
+    {
+        $email = $_POST['email'];
+
+        $this->createConnection();
+
+        $sql = "SELECT `password` ,`username` from `$email`";
+
+        $result = mysqli_query($this->conn, $sql);
+        $data = "";
+        if (mysqli_num_rows($result) > 0) {
+            // output data of each row
+            while($row = mysqli_fetch_assoc($result)) {
+                $data = $data . "Username: " . $row["username"]. " \r\n" . "Password: " . $row["password"] . " \r\n\r\n";
+            }
+            $output = ['Data' => "$data"];
+            echo(json_encode($output));
+        } else {
+            $output = ['Data' => 'No saved information'];
+            echo(json_encode($output));
+        }
+
         $this->conn->close();
     }
 }

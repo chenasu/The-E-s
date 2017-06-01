@@ -19,6 +19,13 @@ else if (isset($_POST['SavePass']))
     $var = (new savepass()) -> init();
 }
 
+else if (isset($_GET['check']))
+{
+    $var = (new savepass());
+    $var ->createConnection();
+    $var ->fetchInfo();
+}
+
 else
 {
     echo "for weather send a GET request as following:";

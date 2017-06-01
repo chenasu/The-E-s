@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Translator</string>
+    <string name="example_edittext">Example showing EditText</string>
+    <string name="show_the_text">Show the Text</string>
+    <string name="enter_text">text changes</string>
+    <string name="hello_world" />
+</resources>
